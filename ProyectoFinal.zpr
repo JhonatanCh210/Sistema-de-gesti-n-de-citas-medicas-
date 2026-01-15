@@ -15,7 +15,7 @@ tab_width=4
 tab_use_spaces=0
 explorer_path=.
 inherits_from=
-current_source=menu_medico.c
+current_source=admin.c
 path_char=\
 [source]
 path=pacientes.c
@@ -27,7 +27,7 @@ cursor=51:2
 open=true
 [source]
 path=medicos.c
-cursor=266:0
+cursor=237:13
 open=true
 [source]
 path=utils.c
@@ -39,11 +39,11 @@ cursor=46:2
 open=true
 [source]
 path=admin.c
-cursor=36:3
+cursor=23:17
 open=true
 [source]
 path=citas.c
-cursor=246:16
+cursor=506:30
 open=true
 [source]
 path=menu_paciente.c
@@ -67,7 +67,7 @@ cursor=32:0
 open=true
 [header]
 path=citas.h
-cursor=45:19
+cursor=57:0
 open=true
 [header]
 path=auth.h
@@ -75,7 +75,7 @@ cursor=32:6
 open=true
 [header]
 path=admin.h
-cursor=7:16
+cursor=16:0
 open=true
 [header]
 path=menu_paciente.h

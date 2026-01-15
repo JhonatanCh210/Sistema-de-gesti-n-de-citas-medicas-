@@ -10,5 +10,9 @@ void menu_admin(
 				Paciente pacientes[], int *n_pacientes,
 				Cita citas[], int *n_citas
 				);
+void listar_medicos_con_mas_demanda(
+									Medico medicos[], int n_medicos,
+									Cita citas[], int n_citas
+									);
 
 #endif

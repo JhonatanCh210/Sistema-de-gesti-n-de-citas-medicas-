@@ -49,4 +49,12 @@ int medico_ocupado(
 				   const char *fecha,
 				   const char *hora
 				   );
+
+void listar_pacientes_con_multiples_citas(Cita citas[], int n);
+int contar_citas_activas_medico(
+								Cita citas[], int n_citas,
+								const char *codigo_medico
+								);
+
+
 #endif

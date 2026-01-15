@@ -292,6 +292,7 @@ void menu_citas(Cita citas[], int *n,
 			   "1) Registrar cita\n"
 			   "2) Registrar reporte\n"
 			   "3) Listar citas\n"
+			   "4) Pacientes con multiples citas\n"
 			   "0) Volver\nSeleccione: ");
 		
 		leer_linea(buf, sizeof(buf));
@@ -312,6 +313,10 @@ void menu_citas(Cita citas[], int *n,
 		case 3:
 			listar_citas(citas, *n);
 			break;
+		case 4:
+			listar_pacientes_con_multiples_citas(citas, *n);
+			break;	
+			
 		case 0:
 			return;
 		default:
@@ -431,3 +436,74 @@ void menu_citas(Cita citas[], int *n,
 																 c->estado = ESTADO_RETRASADA;
 															 }
 															 
+															 void listar_pacientes_con_multiples_citas(Cita citas[], int n) {
+																 int mostrados[MAX_CITAS];
+																 int n_mostrados = 0;
+																 
+																 for (int i = 0; i < n; i++) {
+																	 
+																	 if (citas[i].estado == ESTADO_CANCELADA)
+																		 continue;
+																	 
+																	 int codigo = citas[i].codigo_enlace;
+																	 
+																	 /* ===== evitar repetir paciente ===== */
+																	 int ya = 0;
+																	 for (int k = 0; k < n_mostrados; k++) {
+																		 if (mostrados[k] == codigo) {
+																			 ya = 1;
+																			 break;
+																		 }
+																	 }
+																	 if (ya) continue;
+																	 
+																	 /* ===== contar citas ===== */
+																	 int contador = 0;
+																	 for (int j = 0; j < n; j++) {
+																		 if (citas[j].estado != ESTADO_CANCELADA &&
+																			 citas[j].codigo_enlace == codigo) {
+																			 contador++;
+																		 }
+																	 }
+																	 
+																	 if (contador >= 2) {
+																		 mostrados[n_mostrados++] = codigo;
+																		 
+																		 printf("\nPaciente %d (%d citas)\n", codigo, contador);
+																		 
+																		 int idx = 1;
+																		 for (int j = 0; j < n; j++) {
+																			 if (citas[j].estado != ESTADO_CANCELADA &&
+																				 citas[j].codigo_enlace == codigo) {
+																				 
+																				 printf("  %d) Medico: %s  Fecha: %s  Hora: %s\n",
+																						idx++,
+																						citas[j].codigo_medico,
+																						citas[j].fecha,
+																						citas[j].hora);
+																			 }
+																		 }
+																	 }
+																 }
+																 
+																 if (n_mostrados == 0)
+																	 printf("No hay pacientes con multiples citas.\n");
+																 
+																 pausar();
+															 }
+															 
+int contar_citas_activas_medico(
+								Cita citas[], int n_citas,
+								const char *codigo_medico
+							) {
+																 int count = 0;
+																 
+																 for (int i = 0; i < n_citas; i++) {
+																	 if (citas[i].estado == ESTADO_PENDIENTE &&
+																		 strcmp(citas[i].codigo_medico, codigo_medico) == 0) {
+																		 count++;
+																	 }
+																 }
+																 return count;
+															 }
+																							 
